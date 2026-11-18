@@ -1,4 +1,4 @@
-name: Build Windows Desktop App
+name: Build and Release Desktop App
 
 on:
   push:
@@ -25,6 +25,9 @@ jobs:
 
       - name: Package Windows App
         run: npm run package:win
+        env:
+          # Disable auto-publishing during build if GH_TOKEN is absent
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload Installer Artifacts
         uses: actions/upload-artifact@v4
@@ -32,4 +35,4 @@ jobs:
           name: legacy-ai-windows-installer
           path: |
             dist/
-            release/
+            electron-release-optimized/
