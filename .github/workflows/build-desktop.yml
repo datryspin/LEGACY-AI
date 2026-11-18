@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [ main ]
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: windows-latest
@@ -24,9 +27,8 @@ jobs:
         run: npm install
 
       - name: Package Windows App
-        run: npm run package:win
+        run: npx electron-builder --win --publish always
         env:
-          # Disable auto-publishing during build if GH_TOKEN is absent
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload Installer Artifacts
