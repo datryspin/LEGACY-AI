@@ -1,0 +1,23 @@
+project_id = "heeszqbyxflgfecznzmr"
+
+[functions.legacy-chat]
+verify_jwt = false
+
+[functions.home-proxy]
+verify_jwt = false
+
+[functions.car-proxy]
+verify_jwt = false
+
+[functions.legacy-image]
+verify_jwt = false
+
+[functions.legacy-analyze]
+verify_jwt = false
+
+[functions.legacy-phone]
+verify_jwt = false
+
+[functions.legacy-health]
+verify_jwt = false
+

@@ -1,0 +1,414 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. */
+
+@layer base {
+  :root {
+    --background: 345 45% 8%;
+    --foreground: 0 0% 98%;
+    --card: 345 38% 12%;
+    --card-foreground: 0 0% 98%;
+    --popover: 345 38% 12%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 267 75% 62%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 270 22% 17%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 270 18% 16%;
+    --muted-foreground: 270 10% 72%;
+    --accent: 340 55% 32%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 65% 45%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 270 18% 24%;
+    --input: 270 18% 20%;
+    --ring: 267 75% 62%;
+    --radius: 0.65rem;
+    --sidebar-background: 345 42% 10%;
+    --sidebar-foreground: 0 0% 96%;
+    --sidebar-primary: 267 75% 62%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 340 55% 32%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 270 18% 24%;
+    --sidebar-ring: 267 75% 62%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@keyframes legacy-breathe {
+  0%, 100% { opacity: 0.75; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.04); }
+}
+
+@keyframes legacy-scan {
+  0% { transform: translateY(-46%); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(46%); opacity: 0; }
+}
+
+/* Installed-app safe areas (notches, home indicator) */
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+body {
+  padding: 0;
+  overscroll-behavior: none;
+}
+
+      body {
+        background-color: #160d20;
+        color: #faf8fc;
+      }
+
+
+/* LEGACY CINEMATIC MOTION SYSTEM */
+:root {
+  --legacy-motion-fast: 160ms;
+  --legacy-motion-normal: 240ms;
+  --legacy-motion-panel: 320ms;
+  --legacy-motion-ease: cubic-bezier(0.2, 0.75, 0.25, 1);
+  --legacy-motion-emphasis: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes legacy-message-enter {
+  from { opacity: 0; transform: translate3d(0, 9px, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@keyframes legacy-panel-enter {
+  from { opacity: 0; transform: translate3d(0, 12px, 0) scale(0.99); }
+  to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+}
+
+@keyframes legacy-core-idle {
+  0%, 100% { filter: drop-shadow(0 0 5px var(--legacy-glow-soft)); }
+  50% { filter: drop-shadow(0 0 12px var(--legacy-glow)); }
+}
+
+@keyframes legacy-core-thinking {
+  0%, 100% { filter: drop-shadow(0 0 7px var(--legacy-glow-soft)); }
+  50% { filter: drop-shadow(0 0 17px var(--legacy-glow)); }
+}
+
+.legacy-message-enter {
+  animation: legacy-message-enter 260ms var(--legacy-motion-emphasis) both;
+}
+
+.legacy-panel-enter {
+  animation: legacy-panel-enter var(--legacy-motion-panel) var(--legacy-motion-emphasis) both;
+}
+
+.legacy-control {
+  transition:
+    color var(--legacy-motion-fast) ease,
+    background-color var(--legacy-motion-fast) ease,
+    border-color var(--legacy-motion-fast) ease,
+    box-shadow var(--legacy-motion-normal) ease,
+    transform var(--legacy-motion-fast) var(--legacy-motion-ease);
+}
+
+.legacy-control:hover {
+  transform: translateY(-1px);
+}
+
+.legacy-control:active {
+  transform: translateY(0) scale(0.985);
+}
+
+.legacy-control:focus-visible {
+  outline: 2px solid var(--legacy-accent);
+  outline-offset: 3px;
+}
+
+.legacy-reactor[data-state="idle"] svg {
+  animation: legacy-core-idle 3.2s ease-in-out infinite;
+}
+
+.legacy-reactor[data-state="thinking"] svg {
+  animation: legacy-core-thinking 1.8s ease-in-out infinite;
+}
+
+.legacy-reactor[data-state="listening"] svg,
+.legacy-reactor[data-state="speaking"] svg {
+  filter: drop-shadow(0 0 13px var(--legacy-glow));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .legacy-control:hover,
+  .legacy-control:active {
+    transform: none;
+  }
+
+  .legacy-message-enter,
+  .legacy-panel-enter {
+    animation: none;
+  }
+}
+
+
+
+/* LEGACY selectable appearance system */
+:root,
+html.purple-dark {
+  color-scheme: dark;
+  --legacy-bg: #160d20;
+  --legacy-surface: #24152f;
+  --legacy-panel: #301d3d;
+  --legacy-accent: #b78cff;
+  --legacy-accent-bright: #dec7ff;
+  --legacy-accent-deep: #7c3aed;
+  --legacy-glow: rgba(183, 140, 255, 0.42);
+  --legacy-glow-soft: rgba(183, 140, 255, 0.20);
+  --legacy-grid: rgba(183, 140, 255, 0.055);
+  --legacy-text: #ffffff;
+  --legacy-muted: rgba(255, 255, 255, 0.68);
+  --background: 276 40% 9%;
+  --foreground: 0 0% 100%;
+  --card: 276 35% 16%;
+  --card-foreground: 0 0% 100%;
+  --popover: 276 35% 16%;
+  --popover-foreground: 0 0% 100%;
+  --primary: 267 75% 72%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 276 25% 22%;
+  --secondary-foreground: 0 0% 100%;
+  --muted: 276 20% 20%;
+  --muted-foreground: 0 0% 75%;
+  --accent: 267 75% 62%;
+  --accent-foreground: 0 0% 100%;
+  --border: 276 20% 30%;
+  --input: 276 20% 24%;
+  --ring: 267 75% 72%;
+  --sidebar-background: 276 40% 11%;
+  --sidebar-foreground: 0 0% 100%;
+  --sidebar-primary: 267 75% 72%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 276 25% 22%;
+  --sidebar-accent-foreground: 0 0% 100%;
+  --sidebar-border: 276 20% 30%;
+  --sidebar-ring: 267 75% 72%;
+}
+
+html.purple-light {
+  color-scheme: dark;
+  --legacy-bg: #302044;
+  --legacy-surface: #422b59;
+  --legacy-panel: #50366a;
+  --legacy-accent: #d0b3ff;
+  --legacy-accent-bright: #eadcff;
+  --legacy-accent-deep: #a879ed;
+  --legacy-glow: rgba(208, 179, 255, 0.48);
+  --legacy-glow-soft: rgba(208, 179, 255, 0.22);
+  --legacy-grid: rgba(234, 220, 255, 0.07);
+  --legacy-text: #ffffff;
+  --legacy-muted: rgba(255, 255, 255, 0.72);
+  --background: 270 35% 18%;
+  --foreground: 0 0% 100%;
+  --card: 270 30% 26%;
+  --card-foreground: 0 0% 100%;
+  --popover: 270 30% 26%;
+  --popover-foreground: 0 0% 100%;
+  --primary: 267 85% 82%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 270 25% 32%;
+  --secondary-foreground: 0 0% 100%;
+  --muted: 270 20% 29%;
+  --muted-foreground: 0 0% 82%;
+  --accent: 267 75% 78%;
+  --accent-foreground: 0 0% 100%;
+  --border: 270 20% 42%;
+  --input: 270 20% 34%;
+  --ring: 267 85% 82%;
+  --sidebar-background: 270 35% 20%;
+  --sidebar-foreground: 0 0% 100%;
+  --sidebar-primary: 267 85% 82%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 270 25% 32%;
+  --sidebar-accent-foreground: 0 0% 100%;
+  --sidebar-border: 270 20% 42%;
+  --sidebar-ring: 267 85% 82%;
+}
+
+html.maroon-dark {
+  color-scheme: dark;
+  --legacy-bg: #240812;
+  --legacy-surface: #310d1c;
+  --legacy-panel: #43152a;
+  --legacy-accent: #e08aa9;
+  --legacy-accent-bright: #ffd0df;
+  --legacy-accent-deep: #a83d67;
+  --legacy-glow: rgba(224, 138, 169, 0.44);
+  --legacy-glow-soft: rgba(224, 138, 169, 0.20);
+  --legacy-grid: rgba(224, 138, 169, 0.055);
+  --legacy-text: #ffffff;
+  --legacy-muted: rgba(255, 255, 255, 0.68);
+  --background: 342 65% 8%;
+  --foreground: 0 0% 100%;
+  --card: 340 50% 12%;
+  --card-foreground: 0 0% 100%;
+  --popover: 340 50% 12%;
+  --popover-foreground: 0 0% 100%;
+  --primary: 340 55% 68%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 340 35% 18%;
+  --secondary-foreground: 0 0% 100%;
+  --muted: 340 28% 16%;
+  --muted-foreground: 0 0% 75%;
+  --accent: 340 55% 55%;
+  --accent-foreground: 0 0% 100%;
+  --border: 340 28% 25%;
+  --input: 340 28% 20%;
+  --ring: 340 55% 68%;
+  --sidebar-background: 342 60% 10%;
+  --sidebar-foreground: 0 0% 100%;
+  --sidebar-primary: 340 55% 68%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 340 35% 18%;
+  --sidebar-accent-foreground: 0 0% 100%;
+  --sidebar-border: 340 28% 25%;
+  --sidebar-ring: 340 55% 68%;
+}
+
+html.maroon-light {
+  color-scheme: dark;
+  --legacy-bg: #3b1427;
+  --legacy-surface: #542039;
+  --legacy-panel: #65304a;
+  --legacy-accent: #f0a9c2;
+  --legacy-accent-bright: #ffdae7;
+  --legacy-accent-deep: #c65d86;
+  --legacy-glow: rgba(240, 169, 194, 0.48);
+  --legacy-glow-soft: rgba(240, 169, 194, 0.22);
+  --legacy-grid: rgba(255, 218, 231, 0.07);
+  --legacy-text: #ffffff;
+  --legacy-muted: rgba(255, 255, 255, 0.74);
+  --background: 337 50% 15%;
+  --foreground: 0 0% 100%;
+  --card: 337 40% 23%;
+  --card-foreground: 0 0% 100%;
+  --popover: 337 40% 23%;
+  --popover-foreground: 0 0% 100%;
+  --primary: 340 75% 78%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 337 30% 30%;
+  --secondary-foreground: 0 0% 100%;
+  --muted: 337 25% 27%;
+  --muted-foreground: 0 0% 82%;
+  --accent: 340 65% 72%;
+  --accent-foreground: 0 0% 100%;
+  --border: 337 25% 40%;
+  --input: 337 25% 33%;
+  --ring: 340 75% 78%;
+  --sidebar-background: 337 50% 17%;
+  --sidebar-foreground: 0 0% 100%;
+  --sidebar-primary: 340 75% 78%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 337 30% 30%;
+  --sidebar-accent-foreground: 0 0% 100%;
+  --sidebar-border: 337 25% 40%;
+  --sidebar-ring: 340 75% 78%;
+}
+
+html,
+body,
+#root {
+  background-color: var(--legacy-bg);
+  color: var(--legacy-text);
+}
+
+/* Re-theme the application's existing shared surface classes. */
+#root [class~="bg-[#240812]"] {
+  background-color: var(--legacy-bg) !important;
+}
+#root [class~="bg-[#240812]/25"] {
+  background-color: color-mix(in srgb, var(--legacy-bg) 25%, transparent) !important;
+}
+#root [class~="bg-[#240812]/35"] {
+  background-color: color-mix(in srgb, var(--legacy-bg) 35%, transparent) !important;
+}
+#root [class~="bg-[#240812]/60"] {
+  background-color: color-mix(in srgb, var(--legacy-bg) 60%, transparent) !important;
+}
+#root [class~="bg-[#240812]/65"] {
+  background-color: color-mix(in srgb, var(--legacy-bg) 65%, transparent) !important;
+}
+#root [class~="bg-[#240812]/70"] {
+  background-color: color-mix(in srgb, var(--legacy-bg) 70%, transparent) !important;
+}
+#root [class~="bg-[#240812]/80"] {
+  background-color: color-mix(in srgb, var(--legacy-bg) 80%, transparent) !important;
+}
+#root [class~="bg-[#240812]/85"] {
+  background-color: color-mix(in srgb, var(--legacy-bg) 85%, transparent) !important;
+}
+#root [class~="bg-[#240812]/90"] {
+  background-color: color-mix(in srgb, var(--legacy-bg) 90%, transparent) !important;
+}
+#root [class~="bg-[#240812]/95"] {
+  background-color: color-mix(in srgb, var(--legacy-bg) 95%, transparent) !important;
+}
+#root [class~="bg-[#310d1c]"] {
+  background-color: var(--legacy-surface) !important;
+}
+#root [class~="bg-[#310d1c]/40"] {
+  background-color: color-mix(in srgb, var(--legacy-surface) 40%, transparent) !important;
+}
+#root [class~="bg-[#310d1c]/50"] {
+  background-color: color-mix(in srgb, var(--legacy-surface) 50%, transparent) !important;
+}
+#root [class~="bg-[#310d1c]/60"] {
+  background-color: color-mix(in srgb, var(--legacy-surface) 60%, transparent) !important;
+}
+#root [class~="bg-[#310d1c]/70"] {
+  background-color: color-mix(in srgb, var(--legacy-surface) 70%, transparent) !important;
+}
+#root [class~="bg-[#310d1c]/80"] {
+  background-color: color-mix(in srgb, var(--legacy-surface) 80%, transparent) !important;
+}
+#root [class~="bg-[#310d1c]/95"] {
+  background-color: color-mix(in srgb, var(--legacy-surface) 95%, transparent) !important;
+}
+#root [class*="bg-purple-"] {
+  background-color: color-mix(in srgb, var(--legacy-accent) 13%, transparent) !important;
+}
+#root [class*="text-purple-"] {
+  color: var(--legacy-accent) !important;
+}
+#root [class*="text-purple-50"] {
+  color: #ffffff !important;
+}
+#root [class*="border-purple-"] {
+  border-color: color-mix(in srgb, var(--legacy-accent) 38%, transparent) !important;
+}
+#root input::placeholder,
+#root textarea::placeholder {
+  color: var(--legacy-muted);
+}
